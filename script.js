@@ -532,15 +532,54 @@ function movePiece(dx) {
 }
 
 /**
+ * 회전 시 벽에 걸리면 시도할 위치 오프셋 (벽 차기).
+ * 좌우 끝에서 회전할 때 한두 칸 안쪽으로 밀어 배치를 시도한다.
+ */
+const WALL_KICK_OFFSETS = [
+  { x: 0, y: 0 },
+  { x: -1, y: 0 },
+  { x: 1, y: 0 },
+  { x: 0, y: -1 },
+  { x: -2, y: 0 },
+  { x: 2, y: 0 },
+  { x: -1, y: -1 },
+  { x: 1, y: -1 },
+];
+
+/**
+ * 회전된 모양을 놓을 수 있는 위치를 벽 차기로 찾는다.
+ * @param {string} type
+ * @param {number} x
+ * @param {number} y
+ * @param {number[][]} rotated
+ * @returns {{ x: number, y: number, shape: number[][] } | null}
+ */
+function findRotationPosition(type, x, y, rotated) {
+  for (const offset of WALL_KICK_OFFSETS) {
+    const newX = x + offset.x;
+    const newY = y + offset.y;
+
+    if (isValidPosition(type, newX, newY, rotated)) {
+      return { x: newX, y: newY, shape: rotated };
+    }
+  }
+
+  return null;
+}
+
+/**
  * 시계 방향으로 90° 회전한다.
- * 벽이나 다른 블록에 막히면 회전하지 않는다.
+ * 벽에 막히면 벽 차기로 인접 위치를 시도하고, 블록과 겹치면 회전하지 않는다.
  */
 function rotatePiece() {
   const { type, x, y, shape } = currentPiece;
   const rotated = rotateShapeClockwise(shape);
+  const result = findRotationPosition(type, x, y, rotated);
 
-  if (isValidPosition(type, x, y, rotated)) {
-    currentPiece.shape = rotated;
+  if (result) {
+    currentPiece.x = result.x;
+    currentPiece.y = result.y;
+    currentPiece.shape = result.shape;
     draw();
   }
 }

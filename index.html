@@ -8,6 +8,11 @@
 </head>
 <body>
   <main class="game-container">
+    <aside class="next-panel">
+      <h2>다음</h2>
+      <canvas id="next-board" width="96" height="96" aria-label="다음 블록"></canvas>
+    </aside>
+
     <div class="board-wrapper">
       <canvas id="game-board" width="300" height="600" aria-label="게임 보드"></canvas>
 
@@ -19,10 +24,6 @@
 
     <aside class="score-panel">
       <h1 class="game-title">TETRIS</h1>
-      <section class="next-section">
-        <h2>다음</h2>
-        <canvas id="next-board" width="96" height="96" aria-label="다음 블록"></canvas>
-      </section>
       <section class="score-section">
         <h2>점수</h2>
         <p id="score" class="score-value">0</p>
