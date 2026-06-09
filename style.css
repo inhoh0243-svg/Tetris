@@ -1,0 +1,176 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1a1a2e;
+  font-family: system-ui, -apple-system, sans-serif;
+  color: #eee;
+  padding: 1rem;
+}
+
+.game-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  max-width: 100%;
+}
+
+.board-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+  flex-shrink: 0;
+}
+
+#game-board {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 2;
+  background-color: #000;
+  border: 3px solid #444;
+}
+
+.game-over-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+.game-over-overlay.hidden {
+  display: none;
+}
+
+.game-over-text {
+  font-size: clamp(1.25rem, 4vw, 1.75rem);
+  font-weight: 700;
+  color: #e94560;
+  letter-spacing: 0.05em;
+}
+
+#restart-btn {
+  padding: 0.6rem 1.25rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #eee;
+  background-color: #e94560;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#restart-btn:hover {
+  background-color: #ff6b81;
+}
+
+.score-panel {
+  width: 100%;
+  max-width: 160px;
+  padding: 1.25rem;
+  background-color: #16213e;
+  border: 2px solid #444;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.game-title {
+  font-size: 1.5rem;
+  letter-spacing: 0.15em;
+  text-align: center;
+  margin-bottom: 1.25rem;
+  color: #e94560;
+}
+
+.next-section {
+  margin-bottom: 1.25rem;
+}
+
+.next-section h2,
+.score-section h2 {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #888;
+  margin-bottom: 0.5rem;
+}
+
+#next-board {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  background-color: #000;
+  border: 2px solid #333;
+  border-radius: 2px;
+}
+
+.score-section {
+  margin-bottom: 1.25rem;
+}
+
+.score-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* 모바일: 보드와 패널을 세로로 배치 */
+@media (max-width: 520px) {
+  body {
+    align-items: flex-start;
+    padding: 0.75rem;
+  }
+
+  .game-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .board-wrapper {
+    max-width: min(300px, 100vw - 1.5rem);
+  }
+
+  .score-panel {
+    max-width: min(300px, 100vw - 1.5rem);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 1rem;
+    row-gap: 0.75rem;
+  }
+
+  .game-title {
+    grid-column: 1 / -1;
+    margin-bottom: 0.5rem;
+  }
+
+  .next-section {
+    grid-column: 1 / -1;
+    margin-bottom: 0;
+  }
+
+  #next-board {
+    max-width: 96px;
+  }
+
+  .score-section {
+    margin-bottom: 0;
+  }
+}
